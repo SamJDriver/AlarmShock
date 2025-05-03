@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class _AlarmListPage extends StatelessWidget {
+class SchedulePage extends StatelessWidget {
+  const SchedulePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -8,7 +9,7 @@ class _AlarmListPage extends StatelessWidget {
       appBar: AppBar(title: const Text('Alarm List'),
       ),
       body: const Center(
-        child: Text('Alarm List'),
+        child: Text('Schedule Page'),
       ),
     );
   }
