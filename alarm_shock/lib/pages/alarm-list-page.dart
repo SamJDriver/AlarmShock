@@ -1,17 +1,19 @@
 import 'package:alarm_shock/components/alarm-switch.dart';
-import 'package:alarm_shock/components/alarm.dart';
+import 'package:alarm_shock/components/alarm-list-item.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // for date format
 
-class AlarmListPage extends StatelessWidget {
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-  AlarmListPage({super.key});
+class AlarmListPage extends StatefulWidget {
+  const AlarmListPage({super.key});
 
-  final List<Alarm> _items = [
-    Alarm(),
-    Alarm(),
-    Alarm(),
-    Alarm(),
+  @override
+  State<AlarmListPage> createState() => _AlarmListPageState();
+}
+
+class _AlarmListPageState extends State<AlarmListPage> {
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+
+  List<String> _whaaaat = [
   ];
 
   @override
@@ -19,31 +21,38 @@ class AlarmListPage extends StatelessWidget {
     return Scaffold(
       body: AnimatedList(
         key: _listKey,
-        initialItemCount: _items.length,
+        initialItemCount: _whaaaat.length,
         itemBuilder: (context, index, animation) {
-          return buildItem(_items[index], animation); // Build each list item
+          return buildItem(_whaaaat[index], animation); // Build each list item
         },
-      ),      floatingActionButton: FloatingActionButton(onPressed: onAddAlarmPressed, child: const Icon(Icons.add),),
+      ),      
+      floatingActionButton: FloatingActionButton(
+        onPressed: _onAddAlarmPressed,
+        child: const Icon(Icons.add),
+      ),
     );
   }
 
-    Widget buildItem(Alarm item, Animation<double> animation) {
+  Widget buildItem(String item, Animation<double> animation) {
+    print('item: $item');
     return SizeTransition(
       sizeFactor: animation,
-      child: 
-      Card(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(DateFormat('HH:mm a').format(item.alarmTime)),
-            AlarmSwitch()
-          ],
-        )
-      )
+      child: ListTile(
+        title: Text(item),
+      ),
     );
   }
 
-  void onAddAlarmPressed(){
+  void _onAddAlarmPressed() {
+    final newItem = 'Item ${_whaaaat.length + 1}'; // Create a new item
+
+    // Update the underlying data list
+    setState(() {
+      _whaaaat.add(newItem);
+    });
+
+   // Insert the new item into the AnimatedList
+   _listKey.currentState!.insertItem(_whaaaat.length - 1);
   }
 
   void alarmSwitchClicked(bool value){

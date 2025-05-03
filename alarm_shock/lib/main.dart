@@ -14,12 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Alarm Shock',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        scaffoldBackgroundColor: Color.fromARGB(111, 48, 48, 48),
+        colorScheme: ColorScheme.dark(primary: const Color.fromARGB(255, 25, 160, 29), secondary: Color.fromARGB(194, 219, 219, 219)),
+        useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Alarm ShockShock'),
+      home: const MyHomePage(title: 'Alarm Shock'),
     );
   }
 }
@@ -39,11 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        backgroundColor: Colors.greenAccent,
-        title: Text(widget.title),
-      ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (value) => setState(() => _tabIndex = value), 
         selectedIndex: _tabIndex,
@@ -58,11 +53,6 @@ class _MyHomePageState extends State<MyHomePage> {
           SchedulePage(),
           SettingsPage(),
         ][_tabIndex],
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementCounter,
-      //   tooltip: 'Increment',
-      //   child: const Icon(Icons.alarm),
-      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
