@@ -13,7 +13,7 @@ class AlarmListPage extends StatefulWidget {
 class _AlarmListPageState extends State<AlarmListPage> {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
 
-  List<String> _whaaaat = [
+  List<AlarmListItem> _alarms = [
   ];
 
   @override
@@ -21,9 +21,9 @@ class _AlarmListPageState extends State<AlarmListPage> {
     return Scaffold(
       body: AnimatedList(
         key: _listKey,
-        initialItemCount: _whaaaat.length,
+        initialItemCount: _alarms.length,
         itemBuilder: (context, index, animation) {
-          return buildItem(_whaaaat[index], animation); // Build each list item
+          return buildItem(_alarms[index], animation); // Build each list item
         },
       ),      
       floatingActionButton: FloatingActionButton(
@@ -33,29 +33,24 @@ class _AlarmListPageState extends State<AlarmListPage> {
     );
   }
 
-  Widget buildItem(String item, Animation<double> animation) {
-    print('item: $item');
+  Widget buildItem(AlarmListItem item, Animation<double> animation) {
     return SizeTransition(
       sizeFactor: animation,
       child: ListTile(
-        title: Text(item),
+        title: item,
       ),
     );
   }
 
   void _onAddAlarmPressed() {
-    final newItem = 'Item ${_whaaaat.length + 1}'; // Create a new item
+    final newItem = AlarmListItem(); // Create a new item
 
     // Update the underlying data list
     setState(() {
-      _whaaaat.add(newItem);
+      _alarms.add(newItem);
     });
 
    // Insert the new item into the AnimatedList
-   _listKey.currentState!.insertItem(_whaaaat.length - 1);
-  }
-
-  void alarmSwitchClicked(bool value){
-    
+   _listKey.currentState!.insertItem(_alarms.length - 1);
   }
 }
